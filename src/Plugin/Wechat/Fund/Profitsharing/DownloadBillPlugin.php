@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yansongda\Pay\Plugin\Wechat\Fund\Transfer;
+namespace Yansongda\Pay\Plugin\Wechat\Fund\Profitsharing;
 
 use Yansongda\Pay\Exception\Exception;
 use Yansongda\Pay\Exception\InvalidParamsException;
@@ -11,9 +11,9 @@ use Yansongda\Pay\Plugin\Wechat\GeneralPlugin;
 use Yansongda\Pay\Rocket;
 
 /**
- * @see https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter4_3_11.shtml
+ * @see https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter8_1_12.shtml
  */
-class DownloadReceiptPlugin extends GeneralPlugin
+class DownloadBillPlugin extends GeneralPlugin
 {
     /**
      * @throws \Yansongda\Pay\Exception\InvalidParamsException

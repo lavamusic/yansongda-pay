@@ -12,10 +12,12 @@ use Yansongda\Pay\Exception\InvalidResponseException;
 use Yansongda\Pay\Logger;
 use Yansongda\Pay\Rocket;
 
+use function Yansongda\Pay\should_do_http_request;
+use function Yansongda\Pay\verify_wechat_sign;
+
 class LaunchPlugin implements PluginInterface
 {
     /**
-     * @throws \Yansongda\Pay\Exception\ContainerDependencyException
      * @throws \Yansongda\Pay\Exception\ContainerException
      * @throws \Yansongda\Pay\Exception\InvalidConfigException
      * @throws \Yansongda\Pay\Exception\InvalidResponseException
@@ -41,9 +43,9 @@ class LaunchPlugin implements PluginInterface
     }
 
     /**
-     * @throws \Yansongda\Pay\Exception\InvalidResponseException
-     *
      * @return array|\Psr\Http\Message\MessageInterface|\Yansongda\Supports\Collection|null
+     *
+     * @throws \Yansongda\Pay\Exception\InvalidResponseException
      */
     protected function validateResponse(Rocket $rocket)
     {
