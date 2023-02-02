@@ -33,4 +33,3 @@ class AgreementPageSignPlugin implements PluginInterface
         return $next($rocket);
     }
 }
-

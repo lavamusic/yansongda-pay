@@ -13,7 +13,6 @@ use Yansongda\Pay\Exception\InvalidConfigException;
 class Event
 {
     /**
-     * @throws \Yansongda\Pay\Exception\ContainerDependencyException
      * @throws \Yansongda\Pay\Exception\ContainerException
      * @throws \Yansongda\Pay\Exception\ServiceNotFoundException
      * @throws \Yansongda\Pay\Exception\InvalidConfigException
@@ -26,12 +25,12 @@ class Event
 
         $class = Pay::get(EventDispatcherInterface::class);
 
-        $class->{$method}(...$args);
-//        if ($class instanceof \Psr\EventDispatcher\EventDispatcherInterface) {
-//            $class->{$method}(...$args);
-//            return;
-//        }
+        if ($class instanceof \Psr\EventDispatcher\EventDispatcherInterface) {
+            $class->{$method}(...$args);
 
-//        throw new InvalidConfigException(Exception\Exception::EVENT_CONFIG_ERROR);
+            return;
+        }
+
+        throw new InvalidConfigException(Exception\Exception::EVENT_CONFIG_ERROR);
     }
 }
