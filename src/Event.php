@@ -25,12 +25,12 @@ class Event
 
         $class = Pay::get(EventDispatcherInterface::class);
 
-        if ($class instanceof \Psr\EventDispatcher\EventDispatcherInterface) {
-            $class->{$method}(...$args);
-
-            return;
-        }
-
-        throw new InvalidConfigException(Exception\Exception::EVENT_CONFIG_ERROR);
+//        if ($class instanceof \Psr\EventDispatcher\EventDispatcherInterface) {
+//            $class->{$method}(...$args);
+//
+//            return;
+//        }
+//
+//        throw new InvalidConfigException(Exception\Exception::EVENT_CONFIG_ERROR);
     }
 }
