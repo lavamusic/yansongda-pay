@@ -4,31 +4,24 @@ declare(strict_types=1);
 
 namespace Yansongda\Pay\Plugin\Wechat\Pay\App;
 
-use Exception;
-
-use function Yansongda\Pay\get_wechat_config;
-use function Yansongda\Pay\get_wechat_sign;
-
 use Yansongda\Pay\Rocket;
 use Yansongda\Supports\Collection;
 use Yansongda\Supports\Config;
 use Yansongda\Supports\Str;
 
-/**
- * @see https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_2_4.shtml
- */
 class InvokePrepayPlugin extends \Yansongda\Pay\Plugin\Wechat\Pay\Common\InvokePrepayPlugin
 {
     /**
+     * @throws \Yansongda\Pay\Exception\ContainerDependencyException
      * @throws \Yansongda\Pay\Exception\ContainerException
      * @throws \Yansongda\Pay\Exception\ServiceNotFoundException
-     * @throws Exception
+     * @throws \Exception
      */
     protected function getInvokeConfig(Rocket $rocket, string $prepayId): Config
     {
         $config = new Config([
-            'appid' => $this->getAppId($rocket),
-            'partnerid' => get_wechat_config($rocket->getParams())['mch_id'] ?? null,
+            'appid' => $this->getAppid($rocket),
+            'partnerid' => get_wechat_config($rocket->getParams())->get('mch_id'),
             'prepayid' => $prepayId,
             'package' => 'Sign=WXPay',
             'noncestr' => Str::random(32),
@@ -41,6 +34,7 @@ class InvokePrepayPlugin extends \Yansongda\Pay\Plugin\Wechat\Pay\Common\InvokeP
     }
 
     /**
+     * @throws \Yansongda\Pay\Exception\ContainerDependencyException
      * @throws \Yansongda\Pay\Exception\ContainerException
      * @throws \Yansongda\Pay\Exception\InvalidConfigException
      * @throws \Yansongda\Pay\Exception\ServiceNotFoundException
@@ -55,8 +49,10 @@ class InvokePrepayPlugin extends \Yansongda\Pay\Plugin\Wechat\Pay\Common\InvokeP
         return get_wechat_sign($params, $contents);
     }
 
-    protected function getConfigKey(): string
+    protected function getAppid(Rocket $rocket): string
     {
-        return 'app_id';
+        $config = get_wechat_config($rocket->getParams());
+
+        return $config->get('app_id', '');
     }
 }

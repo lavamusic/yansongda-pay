@@ -11,11 +11,14 @@ class PayStarted extends Event
     /**
      * @var \Yansongda\Pay\Contract\PluginInterface[]
      */
-    public array $plugins;
+    public $plugins;
 
-    public array $params;
+    /**
+     * @var array
+     */
+    public $params;
 
-    public function __construct(array $plugins, array $params, ?Rocket $rocket = null)
+    public function __construct(array $plugins, array $params, ?Rocket $rocket)
     {
         $this->plugins = $plugins;
         $this->params = $params;

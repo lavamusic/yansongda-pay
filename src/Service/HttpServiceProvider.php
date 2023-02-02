@@ -13,18 +13,17 @@ use Yansongda\Pay\Pay;
 class HttpServiceProvider implements ServiceProviderInterface
 {
     /**
+     * @throws \Yansongda\Pay\Exception\ContainerDependencyException
      * @throws \Yansongda\Pay\Exception\ContainerException
      * @throws \Yansongda\Pay\Exception\ServiceNotFoundException
      */
-    public function register($data = null): void
+    public function register(Pay $pay, ?array $data = null): void
     {
         /* @var \Yansongda\Supports\Config $config */
         $config = Pay::get(ConfigInterface::class);
 
-        if (class_exists(Client::class)) {
-            $service = new Client($config->get('http', []));
+        $service = new Client($config->get('http', []));
 
-            Pay::set(HttpClientInterface::class, $service);
-        }
+        Pay::set(HttpClientInterface::class, $service);
     }
 }

@@ -10,9 +10,6 @@ use Yansongda\Pay\Logger;
 use Yansongda\Pay\Parser\ResponseParser;
 use Yansongda\Pay\Rocket;
 
-/**
- * @see https://opendocs.alipay.com/open/03rbye
- */
 class TransPagePayPlugin implements PluginInterface
 {
     public function assembly(Rocket $rocket, Closure $next): Rocket

@@ -15,12 +15,15 @@ class AlipayServiceProvider implements ServiceProviderInterface
     /**
      * @throws \Yansongda\Pay\Exception\ContainerException
      */
-    public function register($data = null): void
+    public function register(Pay $pay, ?array $data = null): void
     {
-        $service = new Alipay();
+        $service = function () {
+            Pay::set(ParserInterface::class, CollectionParser::class);
 
-        Pay::set(ParserInterface::class, CollectionParser::class);
-        Pay::set(Alipay::class, $service);
-        Pay::set('alipay', $service);
+            return new Alipay();
+        };
+
+        $pay::set(Alipay::class, $service);
+        $pay::set('alipay', $service);
     }
 }

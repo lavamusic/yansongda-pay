@@ -8,7 +8,10 @@ use Throwable;
 
 class InvalidResponseException extends Exception
 {
-    public ?Throwable $exception = null;
+    /**
+     * @var \Throwable|null
+     */
+    public $exception = null;
 
     /**
      * @var mixed

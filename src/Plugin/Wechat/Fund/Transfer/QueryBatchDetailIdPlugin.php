@@ -9,9 +9,6 @@ use Yansongda\Pay\Exception\InvalidParamsException;
 use Yansongda\Pay\Plugin\Wechat\GeneralPlugin;
 use Yansongda\Pay\Rocket;
 
-/**
- * @see https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter4_3_3.shtml
- */
 class QueryBatchDetailIdPlugin extends GeneralPlugin
 {
     protected function getMethod(): string
@@ -41,9 +38,6 @@ class QueryBatchDetailIdPlugin extends GeneralPlugin
             $payload->get('detail_id');
     }
 
-    /**
-     * @throws \Yansongda\Pay\Exception\InvalidParamsException
-     */
     protected function getPartnerUri(Rocket $rocket): string
     {
         $payload = $rocket->getPayload();

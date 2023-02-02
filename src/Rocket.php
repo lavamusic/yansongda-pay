@@ -8,31 +8,47 @@ use ArrayAccess;
 use JsonSerializable as JsonSerializableInterface;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\RequestInterface;
+use Serializable as SerializableInterface;
 use Yansongda\Supports\Collection;
 use Yansongda\Supports\Traits\Accessable;
 use Yansongda\Supports\Traits\Arrayable;
 use Yansongda\Supports\Traits\Serializable;
 
-class Rocket implements JsonSerializableInterface, ArrayAccess
+class Rocket implements JsonSerializableInterface, SerializableInterface, ArrayAccess
 {
     use Accessable;
     use Arrayable;
     use Serializable;
 
-    private ?RequestInterface $radar = null;
+    /**
+     * @var \Psr\Http\Message\RequestInterface|null
+     */
+    private $radar = null;
 
-    private array $params = [];
+    /**
+     * @var array
+     */
+    private $params = [];
 
-    private ?Collection $payload = null;
+    /**
+     * @var \Yansongda\Supports\Collection|null
+     */
+    private $payload = null;
 
-    private ?string $direction = null;
+    /**
+     * @var string|null
+     */
+    private $direction = null;
 
     /**
      * @var \Yansongda\Supports\Collection|\Psr\Http\Message\MessageInterface|array|null
      */
     private $destination = null;
 
-    private ?MessageInterface $destinationOrigin = null;
+    /**
+     * @var \Psr\Http\Message\MessageInterface|null
+     */
+    private $destinationOrigin = null;
 
     public function getRadar(): ?RequestInterface
     {

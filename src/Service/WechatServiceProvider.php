@@ -15,12 +15,15 @@ class WechatServiceProvider implements ServiceProviderInterface
     /**
      * @throws \Yansongda\Pay\Exception\ContainerException
      */
-    public function register($data = null): void
+    public function register(Pay $pay, ?array $data = null): void
     {
-        $service = new Wechat();
+        $service = function () {
+            Pay::set(ParserInterface::class, CollectionParser::class);
 
-        Pay::set(ParserInterface::class, CollectionParser::class);
-        Pay::set(Wechat::class, $service);
-        Pay::set('wechat', $service);
+            return new Wechat();
+        };
+
+        $pay::set(Wechat::class, $service);
+        $pay::set('wechat', $service);
     }
 }

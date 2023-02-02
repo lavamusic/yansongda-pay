@@ -6,16 +6,10 @@ namespace Yansongda\Pay\Plugin\Wechat\Ecommerce\Refund;
 
 use Yansongda\Pay\Exception\Exception;
 use Yansongda\Pay\Exception\InvalidParamsException;
-
-use function Yansongda\Pay\get_wechat_config;
-
 use Yansongda\Pay\Plugin\Wechat\GeneralPlugin;
 use Yansongda\Pay\Rocket;
 use Yansongda\Supports\Collection;
 
-/**
- * @see https://pay.weixin.qq.com/wiki/doc/apiv3_partner/apis/chapter7_6_4.shtml
- */
 class ReturnAdvancePlugin extends GeneralPlugin
 {
     /**
@@ -41,6 +35,7 @@ class ReturnAdvancePlugin extends GeneralPlugin
     }
 
     /**
+     * @throws \Yansongda\Pay\Exception\ContainerDependencyException
      * @throws \Yansongda\Pay\Exception\ContainerException
      * @throws \Yansongda\Pay\Exception\ServiceNotFoundException
      */
@@ -48,8 +43,10 @@ class ReturnAdvancePlugin extends GeneralPlugin
     {
         $config = get_wechat_config($rocket->getParams());
 
-        $rocket->setPayload(new Collection([
-            'sub_mchid' => $rocket->getPayload()->get('sub_mchid', $config['sub_mch_id'] ?? ''),
-        ]));
+        $body = [
+            'sub_mchid' => $rocket->getPayload()->get('sub_mchid', $config->get('sub_mch_id', '')),
+        ];
+
+        $rocket->setPayload(new Collection($body));
     }
 }

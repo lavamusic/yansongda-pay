@@ -25,6 +25,8 @@ class PreparePlugin implements PluginInterface
 
     protected function getPayload(array $params): array
     {
-        return array_filter($params, fn ($v, $k) => !Str::startsWith(strval($k), '_'), ARRAY_FILTER_USE_BOTH);
+        return array_filter($params, function ($v, $k) {
+            return !Str::startsWith(strval($k), '_');
+        }, ARRAY_FILTER_USE_BOTH);
     }
 }
